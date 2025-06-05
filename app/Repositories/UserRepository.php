@@ -11,12 +11,4 @@ class UserRepository implements InterfaceRepository
   {
     return User::create($data);
   }
-
-  public function delete(int $id)
-  {
-    $user = User::find($id);
-    return $user 
-    ? $user->delete() 
-    : false;
-  }
 }
