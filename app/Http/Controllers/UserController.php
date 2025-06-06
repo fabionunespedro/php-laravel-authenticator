@@ -31,6 +31,11 @@ class UserController extends Controller
 
   public function checkData(CheckDataRequest $request)
   {
-    return response()->json([$request->user()->id => $request->user()->name]);
+    return response()->json([
+      'id' => $request->user()->id, 
+      'name' => $request->user()->name,
+      'email' => $request->user()->email,
+      'password' => $request->user()->password,
+    ]);
   }
 }
