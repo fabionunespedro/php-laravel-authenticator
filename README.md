@@ -59,3 +59,103 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## API Routes
+**<font color="black">How to register an user:</font>**
+
+If you want to create a new user in your database you must to use ***/api/user/create*** endpoint together with your localhost. In this endpoint must be send a request with following parameters: *name, email and password*. Case you send correctly paramenters, the response that you going to achieve is a status 200 and user informations into a json body.
+<br>
+
+- ***/api/user/create:***
+```php
+Route::post('/user/create', [UserController::class, 'store']);
+```
+<br>
+
+- ***json request example that your send:***
+```json
+{
+  "name": "your_name",
+  "email": "email@example.com",
+  "password": "your_password"
+}
+```
+<br>
+
+- ***json body returned:***
+```json
+{
+    "name": "your_name",
+    "email": "email@example.com",
+    "updated_at": "2025-06-06T19:06:12.000000Z",
+    "created_at": "2025-06-06T19:06:12.000000Z",
+    "id": 6
+}
+```
+<br>
+<br>
+
+**<font color="black">How to login an application:</font>**
+
+For connect an application is essentialy that user has records in application. If you want to login you'll need to access ***/oauth/token*** endpoint together with your localhost. In this endpoint send a request with following parameters: *grant_type, client_id, client_secret, username, password and scope*. Case you send correctly paramenters, the response that you going to achieve is a status 200, and authentication informations into a json body, including token and refresh token.
+<br>
+
+- ***/oauth/token:***
+```php
+this route is default in oauth2 package, can use :
+http://localhost:port/oauth/token
+```
+<br>
+
+- ***json request example that your send:***
+```json
+{
+  "grant_type": "password",
+  "client_id": "your_client_id",
+  "client_secret": "your_client_secret",
+  "username": "email@example.com",
+  "password": "your_password",
+  "scope": ""
+}
+```
+<br>
+
+- ***json body returned:***
+```json
+{
+    "token_type": "Bearer",
+    "expires_in": 000000,
+    "access_token": "........",
+    "refresh_token": "........"
+}
+```
+<br>
+<br>
+
+**<font color="black">How to check user:</font>**
+When you wish check if user exists in database user use ***/api/user/check*** endpoint together with your localhost. In this endpoint not need parameters, just that you pass the token. Case you send correctly paramenters, the response that you going to achieve is a status 200 and user informations into a json body.
+<br>
+- ***/api/user/check:***
+```php
+Route::get('/user/check', [UserController::class, 'checkData'] )
+->middleware('auth:api');
+```
+<br>
+
+- ***json request example that your send:***
+```json
+just send the token to be selected
+```
+<br>
+
+- ***json body returned:***
+```json
+{
+    "id": 1,
+    "name": "your_name",
+    "email": "email@example.com",
+    "password": "password_hash"
+}
+```
+<br>
+<br>
