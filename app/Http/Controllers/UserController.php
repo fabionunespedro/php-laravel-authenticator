@@ -2,23 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CheckDataRequest;
+use App\Http\Requests\LoginPostRequest;
 use App\Services\UserService;
 use App\Http\Requests\StorePostRequest;
+use Illuminate\Container\Attributes\Auth;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Http;
+
+use function Pest\Laravel\json;
 
 class UserController extends Controller
 {
-    protected UserService $service;
+  protected UserService $service;
 
-    public function __construct(UserService $service)
-    {
-      $this->service = $service;
-    }
+  public function __construct(UserService $service)
+  {
+    $this->service = $service;
+  }
 
-    public function store(StorePostRequest $request)
-    {
-      $data = $request->validated();
-      $user = $this->service->create($data);
+  public function store(StorePostRequest $request)
+  {
+    $data = $request->validated();
+    $user = $this->service->create($data);
 
-      return response()->json($user, 201);
-    }
+    return response()->json($user, 201);
+  }
+
+  public function checkData(CheckDataRequest $request)
+  {
+    return response()->json([$request->user()->id => $request->user()->name]);
+  }
 }
