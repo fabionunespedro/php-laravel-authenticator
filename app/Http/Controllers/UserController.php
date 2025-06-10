@@ -3,15 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CheckDataRequest;
-use App\Http\Requests\LoginPostRequest;
 use App\Services\UserService;
 use App\Http\Requests\StorePostRequest;
-use Illuminate\Container\Attributes\Auth;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Http;
-
-use function Pest\Laravel\json;
-
 class UserController extends Controller
 {
   protected UserService $service;
