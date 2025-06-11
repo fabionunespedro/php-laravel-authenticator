@@ -60,19 +60,61 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
-## API Routes
-**<font color="black">How to register an user:</font>**
+## 🚀 Getting Started
 
-If you want to create a new user in your database you must to use ***/api/user/create*** endpoint together with your localhost. In this endpoint must be send a request with following parameters: *name, email and password*. Case you send correctly paramenters, the response that you going to achieve is a status 200 and user informations into a json body.
-<br>
+### Prerequisites
 
-- ***/api/user/create:***
-```php
-Route::post('/user/create', [UserController::class, 'store']);
+- PHP **8.2+**
+- [Composer](https://getcomposer.org/)
+- Laravel **12+**
+- [Postman](https://www.postman.com/) (or other API client)
+- A access token OAuth2 Bearer
+
+---
+
+### 🛠️ Installation
+
+```bash
+composer install
+cp .env.example .env
+php artisan key:generate
+```
+---
+## Running the Server
+
+To start the Laravel development server, run:
+
+```bash
+php artisan serve
+```
+
+## Application Ports
+
+By default, each Laravel-based service runs on a different port (address server and port localizated in .env file):
+
+| Service        | Default Port | .env Variable                    |
+|----------------|--------------|----------------------------------|
+| Authenticator  | `8000`       | `AUTHENTICATOR`                  |
+| Authorizator   | `8001`       | `AUTHORIZATHOR`                  |
+| Backend API    | `8003`       | — *(Used directly by clients or frontend)*     |
+
+To run each project on a specific port, use the `--port` flag when starting the Laravel server:
+
+```bash
+php artisan serve --port=8001
+```
+---
+
+## 📘 API Documentation
+
+**<font color="black"> Register an user:</font>**
+
+```http
+POST /api/user/create
 ```
 <br>
 
-- ***json request example that your send:***
+***json request example that your send:***
 ```json
 {
   "name": "your_name",
@@ -82,7 +124,7 @@ Route::post('/user/create', [UserController::class, 'store']);
 ```
 <br>
 
-- ***json body returned:***
+***json body returned:***
 ```json
 {
     "name": "your_name",
@@ -95,19 +137,14 @@ Route::post('/user/create', [UserController::class, 'store']);
 <br>
 <br>
 
-**<font color="black">How to login an application:</font>**
+**<font color="black">Login an application:</font>**
 
-For connect an application is essentialy that user has records in application. If you want to login you'll need to access ***/oauth/token*** endpoint together with your localhost. In this endpoint send a request with following parameters: *grant_type, client_id, client_secret, username, password and scope*. Case you send correctly paramenters, the response that you going to achieve is a status 200, and authentication informations into a json body, including token and refresh token.
-<br>
-
-- ***/oauth/token:***
-```php
-this route is default in oauth2 package, can use :
-http://localhost:port/oauth/token
+```http
+POST /oauth/token
 ```
 <br>
 
-- ***json request example that your send:***
+***json request example that your send:***
 ```json
 {
   "grant_type": "password",
@@ -120,35 +157,31 @@ http://localhost:port/oauth/token
 ```
 <br>
 
-- ***json body returned:***
+***json body returned:***
 ```json
 {
     "token_type": "Bearer",
-    "expires_in": 000000,
-    "access_token": "........",
-    "refresh_token": "........"
+    "expires_in": "expiration",
+    "access_token": "access_token",
+    "refresh_token": "refresh_token"
 }
 ```
 <br>
 <br>
 
-**<font color="black">How to check user:</font>**
-When you wish check if user exists in database user use ***/api/user/check*** endpoint together with your localhost. In this endpoint not need parameters, just that you pass the token. Case you send correctly paramenters, the response that you going to achieve is a status 200 and user informations into a json body.
-<br>
-- ***/api/user/check:***
+**<font color="black">Check user</font>**
 ```php
-Route::get('/user/check', [UserController::class, 'checkData'] )
-->middleware('auth:api');
+GET /api/user/check
 ```
 <br>
 
-- ***json request example that your send:***
-```json
-just send the token to be selected
+***Header (JSON)***
+```http
+Authorization: Bearer your_access_token
 ```
 <br>
 
-- ***json body returned:***
+***json body returned:***
 ```json
 {
     "id": 1,
@@ -158,4 +191,8 @@ just send the token to be selected
 }
 ```
 <br>
-<br>
+
+| Code     | Meaning  |
+| -------- | -------  |
+| 200      |Success (returns token)|
+| 401      | Unauthorized (invalid token)|
