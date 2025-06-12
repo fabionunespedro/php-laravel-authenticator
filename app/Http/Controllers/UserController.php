@@ -17,7 +17,15 @@ class UserController extends Controller
   public function store(StorePostRequest $request)
   {
     $data = $request->validated();
-    $user = $this->service->create($data);
+    try {
+      $user = $this->service->create($data);
+      return response()->json($user, 201);
+    } catch (\Exception $e) {
+      return response()->json([
+        'error' => 'could not create a user.',
+        'message' => $e->getMessage()
+      ], 500);
+    }
 
     return response()->json($user, 201);
   }
@@ -25,7 +33,7 @@ class UserController extends Controller
   public function checkData(CheckDataRequest $request)
   {
     return response()->json([
-      'id' => $request->user()->id, 
+      'id' => $request->user()->id,
       'name' => $request->user()->name,
       'email' => $request->user()->email,
       'password' => $request->user()->password,
