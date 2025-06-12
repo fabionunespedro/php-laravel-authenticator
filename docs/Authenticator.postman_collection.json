@@ -1,0 +1,223 @@
+{
+	"info": {
+		"_postman_id": "4400cd19-09dd-412d-8b2b-335f5bb13dba",
+		"name": "Authenticator",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45186559"
+	},
+	"item": [
+		{
+			"name": "check",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIwMTk3NDFhMi1mMzhlLTcxY2YtODljZC1iYzg5ZTczZjkxMzkiLCJqdGkiOiI2OTcwOTQ3NzVlNzgzNmY0MmQ1ZmEyZWNkZWQyYTY4NjNkZjVmODIxZWMwMWQ2NzhlNmE3YzQwMmMxNTZmOGEyOTkyNTFiMWQzZDhjMDhlNiIsImlhdCI6MTc0OTE3OTcwNC4zOTgxNDkwMTM1MTkyODcxMDkzNzUsIm5iZiI6MTc0OTE3OTcwNC4zOTgxNTMwNjY2MzUxMzE4MzU5Mzc1LCJleHAiOjE3ODA3MTU3MDQuMzQzNzY2OTI3NzE5MTE2MjEwOTM3NSwic3ViIjoiMiIsInNjb3BlcyI6W119.a4vncdTiY7UsgqLiNQjISIHaCd911Qvn49eGPKotJUlEDH-9Rf_avHimxcTiyct7vDWhAcDtvtpAfGcJE-Whh0q0HqTlg6ORhktVCo-c0M9Ll6ANT0ircKs48WGxP9cSIoci0OvE-6eRH-0xghKHHZaa_ix_p4GpTBXlo2rxGXEcg8GTPJXHL2NuqJ9gqfLrv4JiQA8fGNHFn_pvnm-zSs4MCjk4DXhk3KOsPaQL-BYK8JH0GXBQWgP640HYAFonV3vtHKoKssvKO73zXivPk1Oj9lTQKAe1AuPsATRS_K5wqqdjX11r4v8a5v5za016I5A7okoqSfYD4je3vli_EHKJ9sbsny-gF0f9wf0hhbmeDl6Yo62-aDV3DE2pYJ11Zq4StkhUlUtaFTXEOy2tm6aquZnAG0wLf6Qt5z7PVzVM-a2LkGtu37xjEY9pao56Rg3dp5sPGEx18_biv1dU2DFlDQ15hs9Ixl0epUB2a5i85ED3Bzjdbeh9bXh7GfRLVqUuis8f3NvRMvh34C1W_VBAKUHtVbk_5_ZODYFulQdvzh--VrU_CySBDTd5JuhuODDniZzZRg0aauZxlKeuFKUZRPSy-u4XnbyJEEFzrwAaSFEixui7YmN4uPOKat-jdvfmpKautisaeE-Yeca0_bTm1stOBuYH4pRQGuP1Klo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/user/check",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"João Silva Moreno2\",\n  \"email\": \"joao.silva@example2.com\",\n  \"password\": \"12345678\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/user/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "019746d4-4d1c-723d-ac9f-1c5470b133ca",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "gEFaXdwwa294t25yR03yTsn89L1ci3IVvCjnCyhK",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "email@exampleee.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/oauth/token",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "refresh_token",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "01973175-bcfe-70fc-a8a0-f9db32222b77",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "qXxdBkd57139YkgpHddbP5ujAkbWkOVvNDeHeHph",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "lo@lo.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "senhaForte123",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/oauth/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -175,3 +175,6 @@ Authorization: Bearer your_access_token
 | -------- | -------  |
 | 200      |Success (returns token)|
 | 401      | Unauthorized (invalid token)|
+---
+# Postman Collection
+> [Download authenticator API collection](docs/Authenticator.postman_collection.json)
