@@ -8,7 +8,25 @@
 - [Postman](https://www.postman.com/) (or other API client)
 
 ---
+## 🐳 Running with Docker (Alternative Setup)
 
+If you prefer to run this project using Docker instead of setting up PHP/MySQL manually:
+
+```bash
+docker-compose up -d
+```
+Then, enter the PHP container and run Laravel setup commands:
+
+```bash
+docker exec -it app bash
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+php artisan passport:install
+php artisan db:seed
+``` 
+---
 ### 🛠️ Installation
 
 ```bash
@@ -16,7 +34,7 @@ composer install
 cp .env.example .env
 php artisan key:generate
 ```
----
+
 ## Running Laravel Migrations
 
 To create the necessary database tables, run the following command:
@@ -57,8 +75,37 @@ To execute the seeders and populate the database:
 php artisan db:seed
 ```
 
-## Running the Server
+## 🔐 Passport Installation
+To enable OAuth2 authentication, install Passport with the following command:
 
+```bash
+php artisan passport:install
+```
+This command:
+
+- **Generates encryption keys**  
+  (oauth-private.key and oauth-public.key)
+
+- **Creates the default OAuth2 clients**  
+  - **Personal Access Client**  
+  - **Password Grant Client**
+
+
+### Generating OAuth2 Client 
+
+```bash
+php artisan passport:client --password
+```
+
+This command manually creates a new **Password Grant Client** in the `oauth_clients` table.
+
+Use it when you:
+
+- Need to generate clients  
+- Lost your original `client_id` and `client_secret`  
+- Want to separate credentials for different environments or applications
+
+## Running the Server
 To start the Laravel development server, run:
 
 ```bash
