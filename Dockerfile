@@ -1,18 +1,39 @@
-FROM php:8.2.12-fpm
+FROM php:8.3-cli
 
+# Evita perguntas durante a instalação
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Instala dependências necessárias
 RUN apt-get update && apt-get install -y \
-   libpng-dev libonig-dev libxml2-dev zip unzip git curl libzip-dev \
-   libjpeg-dev libfreetype6-dev \
-   && docker-php-ext-configure gd --with-freetype --with-jpeg \
-   && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
-
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-WORKDIR /var/www/html
-COPY . /var/www/html
-
-RUN chown -R www-data:www-data storage bootstrap/cache
-#https://laravel.com/docs/12.x/deployment#configuration-and-cache Directory permissions
-
-CMD ["php-fpm"]
+    unzip \
+    git \
+    vim \
+    curl \
+    libzip-dev \
+    zip \
+    && docker-php-ext-install zip pdo pdo_mysql \
+    && rm -rf /var/lib/apt/lists/*
 
 
+# Instala o Composer globalmente
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Define o diretório de trabalho
+WORKDIR /app
+
+# Copia todos os arquivos do projeto para dentro do container
+COPY . .
+
+# Corrige permissões automaticamente (sem travar build se não existir ainda)
+RUN mkdir -p storage bootstrap/cache && \
+    chmod -R 777 storage bootstrap/cache || true
+
+# Copia o script de inicialização
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Porta do servidor embutido do Laravel
+EXPOSE 8000
+
+# Usa o entrypoint personalizado
+ENTRYPOINT ["entrypoint.sh"]
